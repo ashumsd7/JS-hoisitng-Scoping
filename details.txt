@@ -1,0 +1,128 @@
+#HOISTING AND SCOPING
+---
+var
+```
+function myfun(){
+    var phrase= "helo";
+    console.log(phrase);    //helo
+}
+myfun();
+console.log(phrase);        //phrase is not defined
+```
+let
+```
+function myfun(){
+    let phrase= "helo";
+    console.log(phrase);    //helo
+}
+myfun();
+console.log(phrase);        //phrase is not defined
+```
+
+One More Example:
+var
+```
+if(true){
+    var test= 200;
+}
+console.log(test);  //200
+```
+let
+```
+if(true){
+    let test= 200;
+}
+console.log(test);   //test is not defined
+```
+
+NOTE: "var" has no block space
+var ignores block scope:
+let  has block scope;
+var :  can't be block or loop local 
+
+Note: if var  is inside any function then var  becomes a function level variable.
+
+NOTE:
+"var" declaration are processed at the function start, no matter where the definition is. (assuming that definition is not in the nested functions)
+
+Example:
+```
+function sayHi() {
+  phrase = "Hello";
+
+  alert(phrase);
+
+  var phrase;            //var  declare here
+}
+sayHi();
+```
+PROCESSED LIKE THIS: as per JS rules:
+```
+function sayHi() {
+  var phrase;          //var declartion goes up where function starts
+  phrase = "Hello";
+
+  alert(phrase);
+}
+sayHi();
+```
+BELOW CODE ALSO BE PROCESSED LIKE ABOVE:   no matter "var" declarations are in  for/if block
+```
+function sayHi() {
+  phrase = "Hello"; // (*)
+
+  if (false) {
+    var phrase;
+  }
+
+  alert(phrase);    //Hello
+}
+sayHi();
+```
+
+This behavior is called "hoisting" or "Raising"   i.e. "var" are hoisted (raised) at top of the function.
+
+NOTE:  Declarations are hoisted , but assignments are not.
+Example
+```
+function sayHi(){
+    console.log(phrase);            //undefined
+    var phrase= "heyyyy";
+}
+sayHi();
+```
+Above Code will be processed like below code:
+```
+function sayHi() {
+  var phrase; // declaration works at the start...
+
+  alert(phrase); // undefined
+
+  phrase = "Hello"; // ...assignment - when the execution reaches it.
+}
+
+sayHi();
+```
+
+NOTE:  var hoisted /let and const not
+Example:
+when "var"
+```
+function Print(){
+    
+    console.log(myvar);         
+  var myvar;                //undefined
+    
+}
+Print();
+```
+when "let"
+```
+function Print(){
+    
+    console.log(myvar);
+  let myvar;                 //error :Cannot access 'myvar' before initialization
+    
+}
+Print();
+```
